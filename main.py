@@ -1,7 +1,11 @@
 import os
+import sys
+from login import *
 
-def checkPass(nameIn,passwdIn,namefile):
-    fr = open(namefile)
+
+def checkPass(nameIn,passwdIn,filename):
+    print(nameIn, passwdIn)
+    fr = open(filename)
     arrayofLines = fr.readlines()
     numberofLines = len(arrayofLines)
     for line in arrayofLines:
@@ -9,7 +13,7 @@ def checkPass(nameIn,passwdIn,namefile):
         listFromLine = line.split(':')
         name = listFromLine[0]
         if name == nameIn:
-            urName =nameIn
+            urName = nameIn
             numberofLines = -1
             passwd = listFromLine[1]
             if passwd == passwdIn:
@@ -71,10 +75,13 @@ def writefile(filename,str):
     fo.write(str)
 
 def main():
-    signup()
-    urName = login()
-    print('welcome to the world: '+urName)
-    #touchfile('test','test.txt')
-    #readfile(filename)
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = login_Window()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+
 
 main()
