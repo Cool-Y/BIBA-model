@@ -7,7 +7,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import hashlib
 
 class root_Window(QtWidgets.QMainWindow):
-
     def __init__(self):
         super(root_Window, self).__init__()
         self.setupUi(self)
@@ -147,6 +146,9 @@ class root_Window(QtWidgets.QMainWindow):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.pushButton.clicked.connect(self.adduser)
+        self.pushButton_6.clicked.connect(self.readuser)
+        self.pushButton_2.clicked.connect(self.rmuser)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -167,11 +169,8 @@ class root_Window(QtWidgets.QMainWindow):
         self.pushButton_2.setText(_translate("MainWindow", "删除"))
         self.pushButton_6.setText(_translate("MainWindow", "已有用户"))
 
-        self.pushButton.clicked.connect(self.adduser)
-        self.pushButton_6.clicked.connect(self.readuser)
-        self.pushButton_2.clicked.connect(self.rmuser)
-
     def adduser(self):
+        print('开始添加')
         name = self.lineEdit_4.text()
         passwd = self.lineEdit_6.text()
         md5 = hashlib.md5()
@@ -190,10 +189,11 @@ class root_Window(QtWidgets.QMainWindow):
                 cur_path = os.getcwd()
                 filename = cur_path + '/etc/passwd.txt'
                 fi = open(filename, 'r+')
-                str = '\n' + name + ':' + passwd + ':' + group
+                str = name + ':' + passwd + ':' + group + '\n'
                 print('成功增加用户' + str + '\n')
                 fi.seek(0, 2)
                 fi.write(str)
+                fi.close()
         else:
             QMessageBox.warning(self,
                                 "警告",
@@ -202,6 +202,7 @@ class root_Window(QtWidgets.QMainWindow):
             self.lineEdit.setFocus()
 
     def readuser(self):
+        print('readuser')
         cur_path = os.getcwd()
         filename = cur_path + '/etc/passwd.txt'
         fo = open(filename)
@@ -229,7 +230,7 @@ class root_Window(QtWidgets.QMainWindow):
                     print('删除用户' + rmName)
                     continue
                 if line == '\n':
-                    print('find')
+                    print('find换行')
                     line = ''
                 w.write(line)
 

@@ -168,7 +168,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         dict = self.getGrade()
         fgrade = str(dict[self.file_path])
         ugrade = self.lineEdit_2.text()
-        if ugrade <=  fgrade:
+        if ugrade >=  fgrade:
             print(ugrade+ ' 正在读取  '+fgrade)
             filename = self.file_path
             print(filename)
@@ -192,7 +192,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         fgrade = dict[self.file_path]
         ugrade = self.lineEdit_2.text()
         print(ugrade + ' 正在写入  ' + fgrade)
-        if ugrade >= fgrade:
+        if ugrade <= fgrade:
             filename = self.file_path
             str = self.textEdit.toPlainText()
             print(str)

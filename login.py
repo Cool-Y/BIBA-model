@@ -94,6 +94,7 @@ class login_Window(QtWidgets.QMainWindow):
                     group = listFromLine[2]
                     print("\n登录成功!\n")
                     if name == 'root':
+                        print('root登录')
                         rootUI.show()
                         MainWindow.close()
                     else:
