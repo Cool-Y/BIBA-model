@@ -1,6 +1,0 @@
-root:123:A
-han:456:B
-yanhan:123456:B
-aaa:aa:B
-new:new:B
-yanglu:lulu:A

@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QFileSystemModel, QTreeView, QWidget, 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.Qt import *
 from PyQt5 import QtCore, QtGui, QtWidgets
+import hashlib
 
 class root_Window(QtWidgets.QMainWindow):
 
@@ -11,6 +12,7 @@ class root_Window(QtWidgets.QMainWindow):
         super(root_Window, self).__init__()
         self.setupUi(self)
         self.retranslateUi(self)
+        self.name = ''
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -150,7 +152,8 @@ class root_Window(QtWidgets.QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "管理员"))
+        MainWindow.setWindowIcon(QtGui.QIcon('./img/icon.png'))
         self.pushButton_3.setText(_translate("MainWindow", "用户名："))
         self.pushButton_5.setText(_translate("MainWindow", "用户等级："))
         self.comboBox.setItemText(0, _translate("MainWindow", "A"))
@@ -171,53 +174,80 @@ class root_Window(QtWidgets.QMainWindow):
     def adduser(self):
         name = self.lineEdit_4.text()
         passwd = self.lineEdit_6.text()
+        md5 = hashlib.md5()
+        md5.update(passwd.encode("utf-8"))
+        passwd = md5.hexdigest()
         group = self.comboBox.currentText()
-        if name == '' or passwd =='':
+        self.name = name
+        if self.euxit():
+            if name == '' or passwd == '':
+                QMessageBox.warning(self,
+                                    "警告",
+                                    "账号和密码不能为空",
+                                    QMessageBox.Yes)
+                self.lineEdit.setFocus()
+            else:
+                cur_path = os.getcwd()
+                filename = cur_path + '/etc/passwd.txt'
+                fi = open(filename, 'r+')
+                str = '\n' + name + ':' + passwd + ':' + group
+                print('成功增加用户' + str + '\n')
+                fi.seek(0, 2)
+                fi.write(str)
+        else:
             QMessageBox.warning(self,
                                 "警告",
-                                "账号和密码不能为空",
+                                "用户已存在",
                                 QMessageBox.Yes)
             self.lineEdit.setFocus()
-        else:
-            cur_path = os.getcwd()
-            filename = cur_path + '\passwd.txt'
-            print(filename)
-            fi = open(filename, 'r+')
-            str = '\n' + name + ':' + passwd + ':' + group
-            fi.seek(0, 2)
-            fi.write(str)
 
     def readuser(self):
         cur_path = os.getcwd()
-        filename = cur_path + '\passwd.txt'
-        print(filename)
+        filename = cur_path + '/etc/passwd.txt'
         fo = open(filename)
         arrayofLines = fo.readlines()
         names = ''
         for line in arrayofLines:
             line = line.strip()
             listFromLine = line.split(':')
-            print(listFromLine)
             names = names + listFromLine[0] + '\n'
         self.textEdit.setPlaceholderText(names)
 
     def rmuser(self):
+        print(1)
         cur_path = os.getcwd()
-        filename = cur_path + '\passwd.txt'
+        filename = cur_path + '/etc/passwd.txt'
         rmName = self.lineEdit.text()
-        print(filename)
         with open(filename, 'r',encoding="utf-8") as r:
             lines = r.readlines()
+            lenl = len(lines)
         with open(filename, 'w',encoding="utf-8") as w:
             for line in lines:
                 l = line.strip()
                 listFromLine = l.split(':')
                 if rmName == listFromLine[0]:
-                    print(rmName)
+                    print('删除用户' + rmName)
                     continue
                 if line == '\n':
-                    line = line.strip()
+                    print('find')
+                    line = ''
                 w.write(line)
+
+
+
+    def euxit(self):
+        name = self.name
+        flag = True
+        cur_path = os.getcwd()
+        filename = cur_path + '/etc/passwd.txt'
+        fo = open(filename)
+        arrayofLines = fo.readlines()
+        for line in arrayofLines:
+            line = line.strip()
+            listFromLine = line.split(':')
+            if name == listFromLine[0]:
+                flag = False
+        return flag
 
 
 if __name__ == "__main__":

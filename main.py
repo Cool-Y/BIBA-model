@@ -54,13 +54,25 @@ def login():
 def touchfile(urName,filename):
     cur_path = os.getcwd()
     print(cur_path)
-    new_path = os.path.join(cur_path,urName)
+    new_path = os.path.join(cur_path+'/file',urName)
     if os.path.exists(new_path) == False:
         os.mkdir(new_path)
     os.chdir(new_path)
     fr = open(filename,'w')
+    key = new_path + '/' + filename
     fr.close()
     os.chdir(cur_path)
+    fa = open('ac.txt','r')
+    a = fa.read()
+    if a == '':
+        dict = {}
+    else:
+        dict = eval(a)
+    dict[key] = 'D'
+    fr = open('ac.txt','w')
+    fr.write(str(dict))
+    fr.close()
+    fa.close()
 
 def readfile(filename):
     fr = open(filename)
@@ -76,12 +88,12 @@ def writefile(filename,str):
 
 def main():
     import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = login_Window()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
-
+    # app = QtWidgets.QApplication(sys.argv)
+    # MainWindow = QtWidgets.QMainWindow()
+    # ui = login_Window()
+    # ui.setupUi(MainWindow)
+    # MainWindow.show()
+    # sys.exit(app.exec_())
+    touchfile('1','te.txt')
 
 main()

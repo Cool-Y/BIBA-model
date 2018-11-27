@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>567</width>
-    <height>414</height>
+    <width>838</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,8 +130,8 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>60</y>
+      <x>410</x>
+      <y>20</y>
       <width>321</width>
       <height>401</height>
      </rect>
@@ -147,8 +147,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>490</y>
+      <x>470</x>
+      <y>450</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -166,8 +166,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>490</y>
+      <x>590</x>
+      <y>450</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -226,13 +226,51 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>520</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Adobe 黑体 Std R</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>新建文件</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>540</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>输入文件名</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>567</width>
+     <width>838</width>
      <height>23</height>
     </rect>
    </property>

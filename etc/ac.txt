@@ -1,0 +1,1 @@
+{'C:/Users/Administrato/Desktop/BIBA-model/file/hanD/DD.txt': 'D', 'C:/Users/Administrato/Desktop/BIBA-model/file/hanB/BBB.txt': 'B', 'C:/Users/Administrato/Desktop/BIBA-model/file/hanC/CCC.txt': 'C'}
