@@ -57,7 +57,8 @@
 ------------
 
 ##  四、实验内容：
-1.  用户登录实现  
+
+### 1.  用户登录实现  
 
 **核对用户输入的账户密码与存储的是否匹配**
 
@@ -117,106 +118,106 @@
       return 0
   ```
 
-2.  管理员功能实现        
+### 2.  管理员功能实现        
 
 **管理员可以对用户进行增、删、查的操作**
 
 ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/rootUI.PNG)
 
-+ 增加用户的实现
+#### 增加用户的实现
 > - 获取管理员输入的用户名、密码和用户等级
 > - 将明文密码转换为md5值
 > - 判断输入的账户是否已经存在以及是否为空
 > - 如果没有问题，将其存入passwd.txt的末尾
 
-    ```python
-    def adduser(self):
-          print('开始添加')
-          name = self.lineEdit_4.text()
-          passwd = self.lineEdit_6.text()
-          md5 = hashlib.md5()
-          md5.update(passwd.encode("utf-8"))
-          passwd = md5.hexdigest()
-          group = self.comboBox.currentText()
-          self.name = name
-          if self.euxit():
-              if name == '' or passwd == '':
-                  QMessageBox.warning(self,
-                                      "警告",
-                                      "账号和密码不能为空",
-                                      QMessageBox.Yes)
-                  self.lineEdit.setFocus()
-              else:
-                  cur_path = os.getcwd()
-                  filename = cur_path + '/etc/passwd.txt'
-                  fi = open(filename, 'r+')
-                  str = name + ':' + passwd + ':' + group + '\n'
-                  print('成功增加用户' + str + '\n')
-                  fi.seek(0, 2)
-                  fi.write(str)
-                  fi.close()
-          else:
+```python
+def adduser(self):
+      print('开始添加')
+      name = self.lineEdit_4.text()
+      passwd = self.lineEdit_6.text()
+      md5 = hashlib.md5()
+      md5.update(passwd.encode("utf-8"))
+      passwd = md5.hexdigest()
+      group = self.comboBox.currentText()
+      self.name = name
+      if self.euxit():
+          if name == '' or passwd == '':
               QMessageBox.warning(self,
                                   "警告",
-                                  "用户已存在",
+                                  "账号和密码不能为空",
                                   QMessageBox.Yes)
               self.lineEdit.setFocus()
-    ```
+          else:
+              cur_path = os.getcwd()
+              filename = cur_path + '/etc/passwd.txt'
+              fi = open(filename, 'r+')
+              str = name + ':' + passwd + ':' + group + '\n'
+              print('成功增加用户' + str + '\n')
+              fi.seek(0, 2)
+              fi.write(str)
+              fi.close()
+      else:
+          QMessageBox.warning(self,
+                              "警告",
+                              "用户已存在",
+                              QMessageBox.Yes)
+          self.lineEdit.setFocus()
+```
 
-* 查询已有用户的实现
+#### 查询已有用户的实现
 
 >从passwd.txt中逐行读出
 
 ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/existUser.PNG)
 
-    ```python
-    def readuser(self):
-          print('readuser')
-          cur_path = os.getcwd()
-          filename = cur_path + '/etc/passwd.txt'
-          fo = open(filename)
-          arrayofLines = fo.readlines()
-          names = ''
-          for line in arrayofLines:
-              line = line.strip()
-              listFromLine = line.split(':')
-              names = names + listFromLine[0] + '\n'
-          self.textEdit.setPlaceholderText(names)
-    ```
+```python
+def readuser(self):
+      print('readuser')
+      cur_path = os.getcwd()
+      filename = cur_path + '/etc/passwd.txt'
+      fo = open(filename)
+      arrayofLines = fo.readlines()
+      names = ''
+      for line in arrayofLines:
+          line = line.strip()
+          listFromLine = line.split(':')
+          names = names + listFromLine[0] + '\n'
+      self.textEdit.setPlaceholderText(names)
+```
 
-* 删除用户的实现
+#### 删除用户的实现
 
 >从passwd.txt中逐行读出用户名，并与待删除用户比较，如果相同，则删除该行
 
-    ```python
-    def rmuser(self):
-          print(1)
-          cur_path = os.getcwd()
-          filename = cur_path + '/etc/passwd.txt'
-          rmName = self.lineEdit.text()
-          with open(filename, 'r',encoding="utf-8") as r:
-              lines = r.readlines()
-              lenl = len(lines)
-          with open(filename, 'w',encoding="utf-8") as w:
-              for line in lines:
-                  l = line.strip()
-                  listFromLine = l.split(':')
-                  if rmName == listFromLine[0]:
-                      print('删除用户' + rmName)
-                      continue
-                  if line == '\n':
-                      print('find换行')
-                      line = ''
-                  w.write(line)
-    ```
+```python
+def rmuser(self):
+      print(1)
+      cur_path = os.getcwd()
+      filename = cur_path + '/etc/passwd.txt'
+      rmName = self.lineEdit.text()
+      with open(filename, 'r',encoding="utf-8") as r:
+          lines = r.readlines()
+          lenl = len(lines)
+      with open(filename, 'w',encoding="utf-8") as w:
+          for line in lines:
+              l = line.strip()
+              listFromLine = l.split(':')
+              if rmName == listFromLine[0]:
+                  print('删除用户' + rmName)
+                  continue
+              if line == '\n':
+                  print('find换行')
+                  line = ''
+              w.write(line)
+```
 
-3.  普通用户功能实现  
+### 3.  普通用户功能实现  
 
 **普通用户可以完成对合法权限文件的读取、增加内容（上写下读）以及创建文件的操作**
 
 ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/normal.PNG)
 
-* 读取文件内容
+#### 读取文件内容
 > 双击文件名   
 > 获取选中文件和当前用户的完整性级别   
 > 如果用户的级别低于文件，则读取文件内容
@@ -245,7 +246,7 @@
            self.lineEdit.setFocus()
    ```
 
-* 增加文件内容
+#### 增加文件内容
 
 > 双击文件名   
 > 获取选中文件和当前用户的完整性级别   
@@ -272,7 +273,7 @@
            self.lineEdit.setFocus()
    ```
 
-* 创建文件
+#### 创建文件
 
 > 获取当前用户名和输入的文件名  
 > 在当前路径下创建名为用户名的文件  
