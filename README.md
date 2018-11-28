@@ -59,7 +59,8 @@
 ##  四、实验内容：
   1.  用户登录实现  
   **核对用户输入的账户密码与存储的是否匹配**
-    ![login](./img/login.png)
+    ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/login.PNG)
+
     * 从用户输入框获取账户和密码
     * 检查输入信息是否合法（为空）
     * 从password.txt中获取，并保存在列表listFromLine中
@@ -115,7 +116,7 @@
   ```
   2.  管理员功能实现        
   **管理员可以对用户进行增、删、查的操作**
-    ![login](./img/rootUI.png)
+    ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/rootUI.PNG)
 
     + 增加用户的实现
     > - 获取管理员输入的用户名、密码和用户等级
@@ -159,7 +160,7 @@
 
     * 查询已有用户的实现
     >从passwd.txt中逐行读出     
-    ![login](./img/existUser.png)
+    ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/existUser.PNG)
 
     ```python
     def readuser(self):
@@ -201,7 +202,7 @@
     ```
   3.  普通用户功能实现    
   **普通用户可以完成对合法权限文件的读取、增加内容（上写下读）以及创建文件的操作**
-      ![login](./img/normal.png)
+      ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/normal.PNG)
 
    * 读取文件内容
    > 双击文件名   
