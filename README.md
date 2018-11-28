@@ -57,16 +57,18 @@
 ------------
 
 ##  四、实验内容：
-  1.  用户登录实现  
-  **核对用户输入的账户密码与存储的是否匹配**
-    ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/login.PNG)
+1.  用户登录实现  
 
-    * 从用户输入框获取账户和密码
-    * 检查输入信息是否合法（为空）
-    * 从password.txt中获取，并保存在列表listFromLine中
-    * 检查输入的账户是否存在
-    * 若存在，检查对应的密码是否正确
-    * 若正确，判断是管理员还是普通用户，并跳转相应的界面
+**核对用户输入的账户密码与存储的是否匹配**
+
+![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/login.PNG)
+
+* 从用户输入框获取账户和密码
+* 检查输入信息是否合法（为空）
+* 从password.txt中获取，并保存在列表listFromLine中
+* 检查输入的账户是否存在
+* 若存在，检查对应的密码是否正确
+* 若正确，判断是管理员还是普通用户，并跳转相应的界面
 
   ```python
   def checkPass(self):
@@ -114,15 +116,18 @@
       fr.close()
       return 0
   ```
-  2.  管理员功能实现        
-  **管理员可以对用户进行增、删、查的操作**
-    ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/rootUI.PNG)
 
-    + 增加用户的实现
-    > - 获取管理员输入的用户名、密码和用户等级
-    > - 将明文密码转换为md5值
-    > - 判断输入的账户是否已经存在以及是否为空
-    > - 如果没有问题，将其存入passwd.txt的末尾
+2.  管理员功能实现        
+
+**管理员可以对用户进行增、删、查的操作**
+
+![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/rootUI.PNG)
+
++ 增加用户的实现
+> - 获取管理员输入的用户名、密码和用户等级
+> - 将明文密码转换为md5值
+> - 判断输入的账户是否已经存在以及是否为空
+> - 如果没有问题，将其存入passwd.txt的末尾
 
     ```python
     def adduser(self):
@@ -158,9 +163,11 @@
               self.lineEdit.setFocus()
     ```
 
-    * 查询已有用户的实现
-    >从passwd.txt中逐行读出     
-    ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/existUser.PNG)
+* 查询已有用户的实现
+
+>从passwd.txt中逐行读出
+
+![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/existUser.PNG)
 
     ```python
     def readuser(self):
@@ -176,8 +183,10 @@
               names = names + listFromLine[0] + '\n'
           self.textEdit.setPlaceholderText(names)
     ```
-    * 删除用户的实现
-    >从passwd.txt中逐行读出用户名，并与待删除用户比较，如果相同，则删除该行
+
+* 删除用户的实现
+
+>从passwd.txt中逐行读出用户名，并与待删除用户比较，如果相同，则删除该行
 
     ```python
     def rmuser(self):
@@ -200,14 +209,17 @@
                       line = ''
                   w.write(line)
     ```
-  3.  普通用户功能实现    
-  **普通用户可以完成对合法权限文件的读取、增加内容（上写下读）以及创建文件的操作**
-      ![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/normal.PNG)
 
-   * 读取文件内容
-   > 双击文件名   
-   > 获取选中文件和当前用户的完整性级别   
-   > 如果用户的级别低于文件，则读取文件内容
+3.  普通用户功能实现  
+
+**普通用户可以完成对合法权限文件的读取、增加内容（上写下读）以及创建文件的操作**
+
+![login](https://github.com/Cool-Y/BIBA-model/blob/master/img/normal.PNG)
+
+* 读取文件内容
+> 双击文件名   
+> 获取选中文件和当前用户的完整性级别   
+> 如果用户的级别低于文件，则读取文件内容
 
    ```python
    def readfile(self):
@@ -232,10 +244,12 @@
                                QMessageBox.Yes)
            self.lineEdit.setFocus()
    ```
-   * 增加文件内容
-   > 双击文件名   
-   > 获取选中文件和当前用户的完整性级别   
-   > 如果用户的级别高于文件，则写入文件内容
+
+* 增加文件内容
+
+> 双击文件名   
+> 获取选中文件和当前用户的完整性级别   
+> 如果用户的级别高于文件，则写入文件内容
 
    ```python
    def writefile(self):
@@ -257,11 +271,13 @@
                                QMessageBox.Yes)
            self.lineEdit.setFocus()
    ```
-   * 创建文件
-   > 获取当前用户名和输入的文件名  
-   > 在当前路径下创建名为用户名的文件  
-   > 并对新创建的文件与用户等级建立字典，新文件路径为key，用户等级为value    
-   > 这个字典方便读写时判断等级高低
+
+* 创建文件
+
+> 获取当前用户名和输入的文件名  
+> 在当前路径下创建名为用户名的文件  
+> 并对新创建的文件与用户等级建立字典，新文件路径为key，用户等级为value    
+> 这个字典方便读写时判断等级高低
 
    ```python
    def touchfile(self):
